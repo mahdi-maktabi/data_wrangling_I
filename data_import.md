@@ -83,3 +83,93 @@ tail(litters_df, 10)
 ``` r
 view(litters_df)
 ```
+
+\#Import FAS Pups
+
+Use relative paths.
+
+``` r
+pups_df = read_csv("data/FAS_pups.csv")
+```
+
+    ## Rows: 313 Columns: 6
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Litter Number, PD ears
+    ## dbl (4): Sex, PD eyes, PD pivot, PD walk
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+pups_df = janitor::clean_names(pups_df)
+```
+
+Use absolute path. Caution: If you move the folder, the code below will
+not work. Use relative paths instead.
+
+``` r
+pups_df = read_csv("/Users/mahdi/Desktop/data_wrangling_I/data/FAS_pups.csv")
+```
+
+## Look at read_csv options
+
+col_names and skip rows
+
+Skip = will be helpful if you don’t want to include first couple of rows
+
+``` r
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    col_names = FALSE,
+    skip = 1
+  )
+```
+
+    ## Rows: 49 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (4): X1, X2, X3, X4
+    ## dbl (4): X5, X6, X7, X8
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+What about missing data
+
+using na = to correct missing variables
+
+``` r
+litters_df =
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", ".")
+  )
+```
+
+    ## Rows: 49 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+litters_df = janitor::clean_names(litters_df)
+```
+
+What if we code `group` as a factor variable?
+
+``` r
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", "."),
+    col_types = cols(
+      Group = col_factor()
+    )
+  )
+```

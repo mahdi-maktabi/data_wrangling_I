@@ -36,3 +36,71 @@ tail(litters_df, 10)
 view(litters_df)
 ```
 
+
+
+#Import FAS Pups
+
+Use relative paths.
+
+```{r}
+pups_df = read_csv("data/FAS_pups.csv")
+
+pups_df = janitor::clean_names(pups_df)
+```
+
+
+
+Use absolute path. Caution: If you move the folder, the code below will not work. Use relative paths instead.
+
+```{r, eval = FALSE}
+pups_df = read_csv("/Users/mahdi/Desktop/data_wrangling_I/data/FAS_pups.csv")
+```
+
+
+## Look at read_csv options
+
+col_names and skip rows
+
+Skip = will be helpful if you don't want to include first couple of rows
+
+```{r}
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    col_names = FALSE,
+    skip = 1
+  )
+```
+
+
+What about missing data
+
+using na = to correct missing variables
+
+```{r}
+litters_df =
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", ".")
+  )
+
+litters_df = janitor::clean_names(litters_df)
+```
+
+
+What if we code `group` as a factor variable?
+
+```{r}
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", "."),
+    col_types = cols(
+      Group = col_factor()
+    )
+  )
+```
+
+
+
+
