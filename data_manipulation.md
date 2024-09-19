@@ -686,7 +686,7 @@ arrange(litters_df, pups_born_alive, gd0_weight)
 
 ## PIPING!!!!!
 
-“and then” = command shift M *\|\>* Pipe in logical order.
+“and then” = command shift M `|>` Pipe in logical order.
 
 ``` r
 litters_df =
